@@ -1,4 +1,4 @@
-# conding:utf-8
+# coding: utf-8
 import pprint # 美化输出
 from collections import namedtuple
 from operator import attrgetter # 生成按名称提取属性的函数
