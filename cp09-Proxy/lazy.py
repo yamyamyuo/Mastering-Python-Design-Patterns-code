@@ -31,30 +31,40 @@ class Test:
         self._resource = tuple(range(5))    # 假设这一行的计算成本比较大
         return self._resource
 
-def main_Py27():
-    t = Test()
-    print(t.x)
-    print(t.y)
-    # 在 python 2.7.12 中
-    print(t.resource) # 这是一个 LazyProperty 的 instance (实例)
-    print(t.resource.__get__(t,Test)) # 调用 get 方法，将 t.resource 变为属性值
-    print(t.resource) # 再调用，得到的是 t.resource 属性值，不再计算
-    
-def main_Py3():
-    t = Test()
-    print(t.x)
-    print(t.y)
-    # 做更多的事情。。。
-    # 在 Python 3.x 中
-    print(t.resource) # 第一次调用，运行 resource() 方法，并将 t.resource 设定为其返回值
-    print(t.resource) # 再调用，得到的是 t.resource 属性值，不再计算
-
-def main():
-    import sys
-    if sys.version_info < (3,0):
-        main_Py27()
-    else:
-        main_Py3()
+    def main_Py27():
+        # python 2.7.x
+        t = Test()
+        print(t.x)
+        #>>> foo
+        print(t.y)
+        #>>> bar
+        print(t.resource)
+        #>>> <__main__.LazyProperty instance at 0x02C2E058>
+        print(t.resource.__get__(t,Test))
+        #>>> initializing self._resource which is: None
+        #>>> (0, 1, 2, 3, 4)
+        print(t.resource)
+        #>>> (0, 1, 2, 3, 4)
         
-if __name__ == '__main__':
-    main()
+    def main_Py3():
+        # python 3.x
+        t = Test()
+        print(t.x)
+        #>>> foo
+        print(t.y)
+        #>>> bar
+        print(t.resource)
+        #>>> initializing self._resource which is: None
+        #>>> (0, 1, 2, 3, 4)
+        print(t.resource)
+        #>>> (0, 1, 2, 3, 4)
+
+        def main():
+            import sys
+            if sys.version_info < (3,0):
+                main_Py27()
+            else:
+                main_Py3()
+        
+        if __name__ == '__main__':
+            main()
