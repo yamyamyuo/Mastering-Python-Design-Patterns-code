@@ -1,6 +1,7 @@
-import pprint
+# conding:utf-8
+import pprint # 美化输出
 from collections import namedtuple
-from operator import attrgetter
+from operator import attrgetter # 生成按名称提取属性的函数
 if __name__ == '__main__':
     ProgrammingLang = namedtuple('ProgrammingLang', 'name ranking')
     stats = (('Ruby', 14), ('Javascript', 8), ('Python', 7),
