@@ -1,5 +1,8 @@
 import xml.etree.ElementTree as etree
 import json
+import os
+dir_path = os.path.dirname(os.path.realpath(__file__))
+print(dir_path)
 
 
 class JSONConnector:
@@ -47,7 +50,7 @@ def main():
     sqlite_factory = connect_to('data/person.sq3')
     print()
 
-    xml_factory = connect_to('data/person.xml')
+    xml_factory = connect_to(dir_path + '/data/person.xml')
     xml_data = xml_factory.parsed_data
     liars = xml_data.findall(".//{}[{}='{}']".format('person',
                                                      'lastName', 'Liar'))
@@ -60,7 +63,7 @@ def main():
 
     print()
 
-    json_factory = connect_to('data/donut.json')
+    json_factory = connect_to(dir_path + '/data/donut.json')
     json_data = json_factory.parsed_data
     print('found: {} donuts'.format(len(json_data)))
     for donut in json_data:

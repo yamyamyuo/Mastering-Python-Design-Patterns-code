@@ -18,8 +18,9 @@ class Widget:
         handler = 'handle_{}'.format(event) # 事件处理函数的格式， 处理 x 事件的函数名称为 handle_x
         if hasattr(self, handler): # 如果对象自己有该消息的处理函数
             method = getattr(self, handler) # 将自己的消息处理函数提取为 method
-            method(event) # 执行处理函数，处理该消息，并消灭该消息(即处理完毕，不再传播)
+            method(event) # 执行处理函数，处理该消息，并消灭该c消息(即处理完毕，不再传播)
         elif self.parent: # 如果该对象在责任链上有上级对象
+            print("上级对象: %s" % self.parent)
             self.parent.handle(event) # 将消息交给上级对象处理
         elif hasattr(self, 'handle_default'): # 如果该对象在责任链上无上级，且有默认处理函数
             self.handle_default(event) # 对事件调用默认处理函数
@@ -48,6 +49,7 @@ class MsgText(Widget):
 
 
 def main():
+    # parent 像一个指针一样, 一层一层往上传递
     mw = MainWindow()
     sd = SendDialog(mw)
     msg = MsgText(sd)
@@ -61,6 +63,7 @@ def main():
         sd.handle(evt)
         print('Sending event -{}- to MsgText'.format(evt))
         msg.handle(evt)
+        print('Sending event -{}- to haha'.format(evt))
         haha.handle(evt) # 由对象 haha 处理消息 'paint' 相当于 haha 截了 sd 的胡
 
 if __name__ == '__main__':
