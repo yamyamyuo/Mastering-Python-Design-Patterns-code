@@ -15,7 +15,7 @@ class Computer:
                 'Graphics Card: {}'.format(self.gpu))
         return '\n'.join(info)
 
-
+# 建造者: 有多个步骤, 负责创建复杂对象的各个组成部分
 class ComputerBuilder:
 
     def __init__(self):
@@ -30,7 +30,7 @@ class ComputerBuilder:
     def configure_gpu(self, gpu_model):
         self.computer.gpu = gpu_model
 
-
+# 指挥者: 使用一个建造者实例, 来控制建造的过程
 class HardwareEngineer:
 
     def __init__(self):
@@ -41,6 +41,7 @@ class HardwareEngineer:
         [step for step in (self.builder.configure_memory(memory),
                            self.builder.configure_hdd(hdd),
                            self.builder.configure_gpu(gpu))]
+
 
     @property
     def computer(self):
