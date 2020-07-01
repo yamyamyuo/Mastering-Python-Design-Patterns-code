@@ -13,6 +13,7 @@ class Pizza:
         info = ('Garlic: {}'.format(garlic), 'Extra cheese: {}'.format(cheese))
         return '\n'.join(info)
 
+    # 将建造者定义为内部类, 这种模式称为流利的建造者.
     class PizzaBuilder:
 
         def __init__(self):
@@ -32,4 +33,5 @@ class Pizza:
 
 if __name__ == '__main__':
     pizza = Pizza.PizzaBuilder().add_garlic().add_extra_cheese().build()
+    # pizza = Pizza.PizzaBuilder().build()
     print(pizza)

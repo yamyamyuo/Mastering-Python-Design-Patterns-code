@@ -1,8 +1,11 @@
 # coding: utf-8
-
+"""
+建造者模式可以让一个对象有不同的表现, 比如构造不同的pizza, 并且让对象的构造与表现解耦
+"""
 from enum import Enum
 import time
 
+# https://docs.python.org/3.4/library/enum.html#functional-api Enum的用法
 PizzaProgress = Enum('PizzaProgress', 'queued preparation baking ready')
 PizzaDough = Enum('PizzaDough', 'thin thick')
 PizzaSauce = Enum('PizzaSauce', 'tomato creme_fraiche')
@@ -21,6 +24,9 @@ class Pizza:
     def __str__(self):
         return self.name
 
+    # 为什么这个方法放到pizza类中,
+    # 1. 虽然最终的产品类通常会最小化, 但是不意味着绝不给他分配任何职责
+    # 2. 为了通过组合提高代码复用
     def prepare_dough(self, dough):
         self.dough = dough
         print('preparing the {} dough of your {}...'.format(self.dough.name, self))
@@ -83,6 +89,7 @@ class CreamyBaconBuilder:
                                    (PizzaTopping.mozzarella, PizzaTopping.bacon,
                                     PizzaTopping.ham, PizzaTopping.mushrooms,
                                     PizzaTopping.red_onion, PizzaTopping.oregano)])
+        print(self.pizza.topping)
         time.sleep(STEP_DELAY)
         print('done with the topping (mozzarella, bacon, ham, mushrooms, red onion, oregano)')
 
@@ -93,12 +100,13 @@ class CreamyBaconBuilder:
         self.progress = PizzaProgress.ready
         print('your creamy bacon is ready')
 
-
+# 指挥者
 class Waiter:
 
     def __init__(self):
         self.builder = None
 
+    # 接受一个建造者为参数, 以正确的顺序制作pizza
     def construct_pizza(self, builder):
         self.builder = builder
         [step() for step in (builder.prepare_dough,
