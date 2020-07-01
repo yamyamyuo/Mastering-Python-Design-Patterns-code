@@ -19,7 +19,7 @@ class Bug:
     def action(self):
         return 'eats it'
 
-
+# 抽象工厂: 负责创建游戏的主人公和障碍物
 class FrogWorld:
 
     def __init__(self, name):
@@ -56,7 +56,7 @@ class Ork:
     def action(self):
         return 'kills it'
 
-
+# 抽象工厂
 class WizardWorld:
 
     def __init__(self, name):
@@ -72,7 +72,7 @@ class WizardWorld:
     def make_obstacle(self):
         return Ork()
 
-
+# 游戏的主入口, 接受factory作为输入
 class GameEnvironment:
 
     def __init__(self, factory):

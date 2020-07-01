@@ -26,7 +26,7 @@ class XMLConnector:
     def parsed_data(self):
         return self.tree
 
-
+# 工厂方法
 def connection_factory(filepath):
     if filepath.endswith('json'):
         connector = JSONConnector
