@@ -11,6 +11,7 @@ class Book:
         self.name = name
         self.authors = authors
         self.price = price      # 单位为美元
+        # rest 是变长变量, 通过下面一行代码添加rest的内容添加到Book类的内部字典中
         self.__dict__.update(rest)
 
     def __str__(self):
@@ -23,12 +24,13 @@ class Book:
             mylist.append('\n')
         return ''.join(mylist)
 
-
+# 实现了原型设计模式, 核心是clone方法
 class Prototype:
 
     def __init__(self):
         self.objects = dict()
 
+    # 用于追踪被克隆的对象, 不是必须
     def register(self, identifier, obj):
         self.objects[identifier] = obj
 
