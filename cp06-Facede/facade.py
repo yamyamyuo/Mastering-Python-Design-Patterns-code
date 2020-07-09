@@ -1,5 +1,13 @@
 # coding: utf-8
+"""
+外观设计模式有助于隐藏系统内部的复杂性. 在已有系统之上实现一个抽象层
 
+ABC，Abstract Base Class（抽象基类）
+metaclass，直译为元类, 换句话说，你可以把类看成是metaclass创建出来的“实例”。
+https://www.liaoxuefeng.com/wiki/1016959663602400/1017592449371072
+
+
+"""
 from enum import Enum
 from abc import ABCMeta, abstractmethod
 
@@ -98,9 +106,11 @@ class OperatingSystem:
         self.fs = FileServer()
         self.ps = ProcessServer()
 
+    # 系统的入口点
     def start(self):
         [i.boot() for i in (self.fs, self.ps)]
 
+    # 添加更多的包装方法为服务的访问点
     def create_file(self, user, name, permissions):
         return self.fs.create_file(user, name, permissions)
 
